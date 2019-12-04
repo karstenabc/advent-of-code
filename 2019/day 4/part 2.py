@@ -1,6 +1,5 @@
 #true if digits never descend
-def increasing(value):
-    code = [int(x) for x in str(value)]
+def increasing(code):
     current = code[0]
     for i in range(1, len(code)):
         if (code[i] < current):
@@ -11,8 +10,7 @@ def increasing(value):
 
 
 #true if there are two repeated digits
-def group(value):
-    code = [int(x) for x in str(value)]
+def group(code):
     occurances = []
     for i in range(1, 10):
         occurances.append(code.count(i))
@@ -29,7 +27,8 @@ def group(value):
 #find combinations for range
 combinations = 0
 for i in range(248345, 746316):
-    if (increasing(i) and group(i)):
+    code = [int(x) for x in str(i)]
+    if (increasing(code) and group(code)):
         combinations += 1
 
     
