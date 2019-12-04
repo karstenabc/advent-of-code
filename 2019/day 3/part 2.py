@@ -9,9 +9,17 @@ b = lines[1].split(',')
 
 
 #store paths
-def storeset(data):
-    path = set()
-    current = [0,0]
+def addpoint(path, x, y):
+    if (type(path) == set):
+        path.add((x, y))
+    else:
+        path.append([x, y])
+    return path
+
+
+def store(data, path):
+    x = 0
+    y = 0
     
     for i in range(0, len(data)):
         operation = data[i][0]
@@ -19,61 +27,40 @@ def storeset(data):
         
         if (operation == 'U'):
             for j in range(0, (distance)):
-                path.add( (current[0], (current[1]+1)) )
-                current = [current[0], (current[1]+1)]
+                y += 1
+                path = addpoint(path, x, y)
 
         if (operation == 'D'):
             for j in range(0, (distance)):
-                path.add( (current[0], (current[1]-1)) )
-                current = [current[0], (current[1]-1)]
+                y -= 1
+                path = addpoint(path, x, y)
 
         if (operation == 'L'):
             for j in range(0, (distance)):
-                path.add( ((current[0]-1), current[1]) )
-                current = [(current[0]-1), current[1]]
+                x -= 1
+                path = addpoint(path, x, y)
 
         if (operation == 'R'):
             for j in range(0, (distance)):
-                path.add( ((current[0]+1), current[1]) )
-                current = [(current[0]+1), current[1]]
-    return path
+                x += 1
+                path = addpoint(path, x, y)
+    return path    
+
+
+def storeset(data):
+    path = set()
+    return store(data, path)
+
+def storelist(data):
+    path = []
+    return store(data, path)
+
 
 
 #get intersections
 patha = storeset(a)
 pathb = storeset(b)
 intersections = list(patha.intersection(pathb))
-
-
-def storelist(data):
-    path = []
-    current = [0,0]
-    
-    for i in range(0, len(data)):
-        operation = data[i][0]
-        distance = int(data[i][1:])
-        
-        if (operation == 'U'):
-            for j in range(0, (distance)):
-                path.append( [current[0], (current[1]+1)] )
-                current = path[-1]
-
-        if (operation == 'D'):
-            for j in range(0, (distance)):
-                path.append( [current[0], (current[1]-1)] )
-                current = path[-1]
-
-        if (operation == 'L'):
-            for j in range(0, (distance)):
-                path.append( [(current[0]-1), current[1]] )
-                current = path[-1]
-
-        if (operation == 'R'):
-            for j in range(0, (distance)):
-                path.append( [(current[0]+1), current[1]] )
-                current = path[-1]
-    return path
-
 
 
 def stepstointersect(data, intersection):
@@ -83,16 +70,13 @@ def stepstointersect(data, intersection):
             return (i + 1)
 
 
-stepsa = []
-stepsb = []
 for i in range(0, len(intersections)):
-    stepsa.append(stepstointersect(a, list(intersections[i])))
-    stepsb.append(stepstointersect(b, list(intersections[i])))
+    stepsa = stepstointersect(a, list(intersections[i]))
+    stepsb = stepstointersect(b, list(intersections[i]))
+    if (i == 0):
+        min = stepsa + stepsb
+    elif ((stepsa + stepsb) < min):
+        min = stepsa + stepsb
 
-min = stepsa[0] + stepsb[0]
-for i in range(1, len(stepsa)):
-    if ((stepsa[i] + stepsb[i]) < min):
-        min = (stepsa[i] + stepsb[i])
-
-print(min)
+print (min)
             

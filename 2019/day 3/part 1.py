@@ -11,7 +11,8 @@ b = lines[1].split(',')
 #store paths as a set
 def store(data):
     path = set()
-    current = [0,0]
+    x = 0
+    y = 0
     
     for i in range(0, len(data)):
         operation = data[i][0]
@@ -19,23 +20,23 @@ def store(data):
         
         if (operation == 'U'):
             for j in range(0, (distance)):
-                path.add( (current[0], (current[1]+1)) )
-                current = [current[0], (current[1]+1)]
+                y += 1
+                path.add((x, y))
 
         if (operation == 'D'):
             for j in range(0, (distance)):
-                path.add( (current[0], (current[1]-1)) )
-                current = [current[0], (current[1]-1)]
+                y -= 1
+                path.add((x, y))
 
         if (operation == 'L'):
             for j in range(0, (distance)):
-                path.add( ((current[0]-1), current[1]) )
-                current = [(current[0]-1), current[1]]
+                x -= 1
+                path.add((x, y))
 
         if (operation == 'R'):
             for j in range(0, (distance)):
-                path.add( ((current[0]+1), current[1]) )
-                current = [(current[0]+1), current[1]]
+                x += 1
+                path.add((x, y))
     return path
 
 
