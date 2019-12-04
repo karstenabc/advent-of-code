@@ -17,10 +17,7 @@ def group(code):
         
     for i in range(0, len(occurances)):
         if (occurances[i] == 2):
-            indexa = code.index(i+1)
-            indexb = code.index(i+1, indexa+1)
-            if (indexb - indexa == 1):
-                return True
+            return True
     return False
 
 
