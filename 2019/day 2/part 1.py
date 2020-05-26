@@ -1,27 +1,34 @@
-input = [1,0,0,0,99]
-input = [2,3,0,3,99]
-input = [2,4,4,5,99,0]
-input = [1,1,1,4,99,5,6,0,99]
-input = [1,0,0,3,1,1,2,3,1,3,4,3,1,5,0,3,2,6,1,19,1,19,5,23,2,10,23,27,2,27,13,31,1,10,31,35,1,35,9,39,2,39,13,43,1,43,5,47,1,47,6,51,2,6,51,55,1,5,55,59,2,9,59,63,2,6,63,67,1,13,67,71,1,9,71,75,2,13,75,79,1,79,10,83,2,83,9,87,1,5,87,91,2,91,6,95,2,13,95,99,1,99,5,103,1,103,2,107,1,107,10,0,99,2,0,14,0]
-input[1] = 12
-input[2] = 2
+# read opcode file
+file = open("input.txt", "r")
+data = file.read().split(',')
+data = [int(i) for i in data]
 
-for i in range(0, len(input), 4):
-    code = input[i]
 
-    if (code == 1 or code == 2):
-        a = input[input[i+1]]
-        b = input[input[i+2]]
-        out = input[i+3]
+# compute previous state
+def prevGravityState(codes):
+    for i in range(0, len(codes), 4):
+        code = codes[i]
 
-        if (code == 1):
-            input[out] = a + b
-        if (code == 2):
-            input[out] = a * b
+        if code == 1 or code == 2:
+            # get values at indexes following code
+            a = codes[codes[i + 1]]
+            b = codes[codes[i + 2]]
+            out = codes[i + 3]
 
-    elif (code == 99):
-        print("-----" + str(input[0]) + "-----")
-    else:
-        print("*****" + str(input[0]) + "*****")
+            # overwrite out index with result
+            if code == 1:
+                codes[out] = a + b
+            if code == 2:
+                codes[out] = a * b
 
-print (input[0])
+        # halt if code is 99 or unknown
+        elif code == 99:
+            return codes[0]
+        else:
+            return codes[0]
+
+
+# set inputs to program
+data[1] = 12
+data[2] = 2
+print("Previous State: " + str(prevGravityState(data)))
