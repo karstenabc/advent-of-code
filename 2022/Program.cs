@@ -3,6 +3,7 @@
 using DayOne = _2022._1.Solution;
 using DayTwo = _2022._2.Solution;
 using DayThree = _2022._3.Solution;
+using DayFour = _2022._4.Solution;
 
 Solution.PartOne();
 Solution.PartTwo();
@@ -10,5 +11,5 @@ Solution.PartTwo();
 DayTwo.PartOne();
 DayTwo.PartTwo();
 
-DayThree.PartOne();
-DayThree.PartTwo();
+DayFour.PartOne();
+DayFour.PartTwo();
