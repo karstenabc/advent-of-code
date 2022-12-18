@@ -5,6 +5,7 @@ using DayTwo = _2022._2.Solution;
 using DayThree = _2022._3.Solution;
 using DayFour = _2022._4.Solution;
 using DayFive = _2022._5.Solution;
+using DaySix = _2022._6.Solution;
 
 Solution.PartOne();
 Solution.PartTwo();
@@ -12,3 +13,7 @@ Solution.PartTwo();
 Console.WriteLine("Day 5");
 DayFive.PartOne();
 DayFive.PartTwo();
+
+Console.WriteLine("Day 6");
+DaySix.PartOne();
+DaySix.PartTwo();
